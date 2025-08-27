@@ -16,11 +16,19 @@ app.use(cors({ origin: "https://patnaleaguefc.netlify.app" }));
 // JSON parsing
 app.use(express.json({ limit: "1mb" }));
 
-// MongoDB
-await mongoose.connect(process.env.MONGODB_URI, {
-  dbName: process.env.MONGODB_DB || "pleague",
-});
-console.log("✅ MongoDB connected");
+// MongoDB connect
+async function connectDB() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      dbName: process.env.MONGODB_DB || "pleague",
+    });
+    console.log("✅ MongoDB connected");
+  } catch (err) {
+    console.error("❌ MongoDB connection failed:", err.message);
+    process.exit(1);
+  }
+}
+connectDB();
 
 // routes
 app.use("/api/register", registerRoute);
@@ -29,4 +37,4 @@ app.use("/api/cashfree", cashfreeRoute);
 app.get("/", (_req, res) => res.send("P-League FC backend running"));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server on port ${PORT}`));
