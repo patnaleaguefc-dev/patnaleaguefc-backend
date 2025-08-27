@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
-import registerRoute from "routes/register.js";
+import registerRoute from "./routes/register.js";
 import cashfreeRoute from "./routes/cashfree.js";
 
 dotenv.config();
@@ -38,6 +38,7 @@ app.get("/", (_req, res) => res.send("P-League FC backend running"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server on port ${PORT}`));
+
 
 
 
