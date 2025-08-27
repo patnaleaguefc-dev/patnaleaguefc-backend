@@ -10,8 +10,8 @@ dotenv.config();
 
 const app = express();
 
-// CORS (allow all for now; tighten by origin in production)
-app.use(cors());
+// CORS: allow requests only from your Netlify frontend
+app.use(cors({ origin: "https://patnaleaguefc.netlify.app" }));
 
 // JSON parsing
 app.use(express.json({ limit: "1mb" }));
